@@ -1,0 +1,243 @@
+{% comment %}
+** Custom Columns - homepage partial **
+- Draggable section
+{% endcomment %}
+
+
+<!-- Columns Block -->
+        
+    
+      <div class="{% if section.settings.bg_check %}col_color_bg{% endif %} custom_column_container">
+              
+        {% for block in section.blocks %}  
+     
+        
+       <div class="custom_columns {{ block.settings.column1_width }} {{ block.settings.vert_align_1 }}">
+          <div class="">
+            <div class="homepage_content section {{ block.settings.text_alignment }} clearfix">
+              {% if block.settings.image %}
+                <img  src="{{ block.settings.image.src | img_url: '300x' }}"
+                      class="lazyload {{ settings.image_loading_style }} {{ block.settings.slideclass }}"
+                      alt="{{ block.settings.image.alt }}"
+                      data-sizes="auto"
+                      data-src="{{ block.settings.image | img_url: '2048x' }}"
+                      data-srcset=" {{ block.settings.image | img_url: '2048x' }} 2048w,
+                                    {{ block.settings.image | img_url: '1600x' }} 1600w,
+                                    {{ block.settings.image | img_url: '1200x' }} 1200w,
+                                    {{ block.settings.image | img_url: '1000x' }} 1000w,
+                                    {{ block.settings.image | img_url: '800x' }} 800w,
+                                    {{ block.settings.image | img_url: '600x' }} 600w,
+                                    {{ block.settings.image | img_url: '400x' }} 400w"
+                      />
+              {% endif %}
+              {% if block.settings.title != blank %}
+                <h2 class="title">
+                  {{ block.settings.title }}
+                </h2>
+                {% if block.settings.column1_div %}<div class="feature_divider"></div>{% endif %}
+              {% endif %}
+              <div class="{{ block.settings.text_size }}">
+                {% if block.settings.content != blank %}
+                  {{ block.settings.content }}
+                {% endif %}
+                {% if block.settings.button_label != blank %}
+                  <a href="{{ block.settings.button_link }}" class="action_button">
+                    {{ block.settings.button_label }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div> 
+     
+        {% endfor %}
+    </div>       
+      
+        <div style="clear:both"></div>
+        
+      <!-- End Columns Block -->
+
+{% schema %}
+
+{
+  "name": "Custom Columns",
+  "class": "custom-columns-section",
+  "settings": [
+      	{
+          "type": "checkbox",
+          "id": "bg_check",
+          "label": "Dark Background?",
+          "info": "Enable/Disable"
+        }
+    ],
+    "blocks": [
+    	{
+        "type": "text_block",
+        "name": "Column",
+        "limit": 5,
+        "settings": [
+		
+        {
+          "type": "select",
+          "id": "vert_align_1",
+          "label": "Vertical Align",
+          "options": [
+            {
+              "value": "vert-align-top",
+              "label": "Top"
+            },
+            {
+              "value": "vert-align-middle",
+              "label": "Middle"
+            },
+        	{
+              "value": "vert-align-bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "vert-align-top"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo",
+          "info": "400 x 100px recommended"
+        },
+		{
+          "type": "select",
+          "id": "slideclass",
+          "label": "slide left or right",
+          "options": [
+            {
+              "value": "inviewleft",
+              "label": "left"
+            },
+            {
+              "value": "inviewright",
+              "label": "right"
+            },
+			{
+              "value": "",
+              "label": "none"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Talk about your brand"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Text",
+          "default": "<p>Use this text to share information about your brand with your customers.</p><p>Describe a product, share announcements, or welcome customers to your store.</p>"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "label": "Text size",
+          "options": [
+            {
+              "value": "regular_text",
+              "label": "Regular"
+            },
+            {
+              "value": "featured_text",
+              "label": "Large"
+            }
+          ],
+          "default": "featured_text"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "options": [
+            {
+              "value": "align_left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "column1_width",
+          "label": "Column Width",
+          "options": [
+            {
+              "value": "one-fifth",
+              "label": "20%"
+            },
+        	{
+              "value": "quarters",
+              "label": "25%"
+            },
+        	{
+              "value": "thirds",
+              "label": "33%"
+            },
+            {
+              "value": "two-fifth",
+              "label": "40%"
+            },
+        	{
+              "value": "half-fifth",
+              "label": "50%"
+            },
+        	{
+              "value": "three-fifth",
+              "label": "60%"
+            },
+        	{
+              "value": "three-quarters",
+              "label": "75%"
+            },
+        	{
+              "value": "four-fifth",
+              "label": "80%"
+            },
+        	{
+              "value": "five-fifth",
+              "label": "100%"
+            }
+			]
+		}
+        
+  ]    
+   } 
+  ],
+  "presets": [
+    {
+      "name": "Custom Columns",
+      "category": "Text",
+      "blocks": [
+          {
+            "type": "text_block"
+          },
+          {
+            "type": "text_block"
+          }
+        ]
+    }
+  ]
+}
+
+{% endschema %}
